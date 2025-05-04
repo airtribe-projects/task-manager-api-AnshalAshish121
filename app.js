@@ -1,17 +1,16 @@
 const express = require('express');
+const dotenv = require('dotenv');
+const taskRoutes = require('./routes/tasks');
+
+const PORT = process.env.PORT || 3000;
+
+dotenv.config();
+
 const app = express();
-const port = 3000;
-
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 
-app.listen(port, (err) => {
-    if (err) {
-        return console.log('Something bad happened', err);
-    }
-    console.log(`Server is listening on ${port}`);
-});
+app.use('/api/v1/tasks', taskRoutes);
 
-
-
-module.exports = app;
+app.listen(PORT, () => {
+    console.log(`Server is running on ${PORT}`);
+  });
